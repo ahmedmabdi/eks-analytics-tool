@@ -1,0 +1,20 @@
+ingressShim:
+  defaultIssuerName: letsencrypt-dns01
+  defaultIssuerKind: ClusterIssuer
+  defaultIssuerGroup: cert-manager.io
+  
+installCRDs: true
+
+serviceAccount:
+  create: true
+  name: cert-manager
+  annotations:
+    eks.amazonaws.com/role-arn: arn:aws:iam::471112781681:role/cert-manager
+
+extraArgs:
+  - --dns01-recursive-nameservers-only                     
+  - --dns01-recursive-nameservers=8.8.8.8:53   
+  - --enable-certificate-owner-ref=true                   
+
+webhook: 
+  timeoutSeconds: 30 

@@ -1,0 +1,39 @@
+prometheus:
+  prometheusSpec:
+    retention: 15d
+    scrapeInterval: 15s
+
+prometheus:
+  ingress:
+    enabled: true
+    ingressClassName: "nginx"
+    annotations:
+      cert-manager.io/cluster-issuer: "issuer"
+    hosts:
+      - prometheus.ahmedumami.click
+    tls:
+      - hosts:
+          - prometheus.ahmedumami.click
+        secretName: prometheus
+
+
+grafana:
+  adminUser: admin
+  adminPassword: "SuperSecurePassword123"
+  service:
+    type: ClusterIP
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+      external-dns.alpha.kubernetes.io/hostname: grafana.ahmedumami.click
+    hosts:
+      - grafana.ahmedumami.click
+    tls:
+      - secretName: grafana-tls
+        hosts:
+          - grafana.ahmedumami.click
+
+alertmanager:
+  enabled: true

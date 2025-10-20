@@ -1,0 +1,22 @@
+global:
+  domain: argocd.ahmedumami.click 
+
+server:
+  nameOverride: argocd-server
+  extraArgs:
+    - --insecure 
+  service:
+    type: ClusterIP
+  ingress:
+    enabled: true
+    controller: generic
+    ingressClassName: nginx
+    annotations:
+      nginx.org/hsts: "false"
+      cert-manager.io/cluster-issuer: issuer
+    hosts:
+      - argocd.ahmedumami.click
+    tls:
+      - hosts:
+          - argocd.ahmedumami.click
+        secretName: argocd-server-tls

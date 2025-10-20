@@ -1,0 +1,19 @@
+serviceAccount:
+  create: true
+  name: external-dns
+  annotations:
+    eks.amazonaws.com/role-arn: arn:aws:iam::471112781681:role/external-dns
+
+provider: aws
+domainFilters:
+  - ahmedumami.click
+
+sources:
+  - ingress
+  - service
+
+policy: upsert-only
+registry: txt
+txtOwnerId: eks-cluster
+interval: 1m
+logLevel: info
