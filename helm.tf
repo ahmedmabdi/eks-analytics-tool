@@ -81,4 +81,3 @@ resource "helm_release" "prometheus" {
 
   depends_on = [helm_release.nginx_ingress, helm_release.cert_manager, helm_release.external_dns]
 }
-

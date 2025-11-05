@@ -5,6 +5,8 @@ module "cert_manager_pod_identity" {
   attach_cert_manager_policy    = true
   cert_manager_hosted_zone_arns = ["arn:aws:route53:::hostedzone/Z103935430WUS287YMWJ6"]
 
+  depends_on = [module.eks]
+
   tags = local.tags
 }
 
@@ -14,6 +16,8 @@ module "external_dns_pod_identity" {
 
   attach_external_dns_policy    = true
   external_dns_hosted_zone_arns = ["arn:aws:route53:::hostedzone/Z103935430WUS287YMWJ6"]
+
+  depends_on = [module.eks]
 
   tags = local.tags
 }
@@ -31,6 +35,12 @@ resource "aws_eks_pod_identity_association" "cert_manager" {
   namespace            = "cert-manager"
   service_account = "cert-manager"
   role_arn         = module.cert_manager_pod_identity.iam_role_arn
+
+  depends_on = [
+    module.eks,
+    module.cert_manager_pod_identity,
+    helm_release.cert_manager
+  ]
 }
 
 resource "aws_eks_pod_identity_association" "external_dns" {
@@ -38,6 +48,12 @@ resource "aws_eks_pod_identity_association" "external_dns" {
   namespace            = "external-dns"
   service_account = "external-dns" 
   role_arn         = module.external_dns_pod_identity.iam_role_arn
+
+   depends_on = [
+    module.eks,
+    module.external_dns_pod_identity,
+    helm_release.external_dns
+  ]
 }
 
 resource "aws_eks_pod_identity_association" "my_app" {
@@ -45,4 +61,8 @@ resource "aws_eks_pod_identity_association" "my_app" {
   namespace            = "default"
   service_account = "my-app"
   role_arn         = module.my_app_pod_identity.iam_role_arn
+
+  depends_on = [
+    module.eks
+  ]
 }

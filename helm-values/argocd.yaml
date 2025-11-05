@@ -7,6 +7,8 @@ server:
     - --insecure 
   service:
     type: ClusterIP
+    annotations:
+      external-dns.alpha.kubernetes.io/hostname: argocd.ahmedumami.click
   ingress:
     enabled: true
     controller: generic
@@ -14,6 +16,7 @@ server:
     annotations:
       nginx.org/hsts: "false"
       cert-manager.io/cluster-issuer: issuer
+      external-dns.alpha.kubernetes.io/hostname: argocd.ahmedumami.click
     hosts:
       - argocd.ahmedumami.click
     tls:

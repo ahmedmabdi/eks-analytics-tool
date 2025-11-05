@@ -6,7 +6,7 @@ serviceAccount:
 
 provider: aws
 domainFilters:
-  - ahmedumami.click 
+  - ahmedumami.click
 
 sources:
   - ingress
