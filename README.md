@@ -3,6 +3,7 @@
 This project provisions a fully managed **Amazon EKS** cluster with end-to-end infrastructure deployed via **Terraform**, containerized app delivery through **ArgoCD** (GitOps), and integrated observability. It is designed with a strong focus on **cost-optimization**, security, and operational best practices for production workloads.
 
 The primary application deployed is the **Umami web analytics** platform for XYZ, enabling scalable and privacy-focused analytics to handle growing traffic demands. Deploying Umami on EKS ensures high availability, seamless scaling, and robust security compliance, all managed with infrastructure-as-code and GitOps workflows to support continuous delivery and operational efficiency.
+
 ---
 
 ## Why Amazon EKS?
