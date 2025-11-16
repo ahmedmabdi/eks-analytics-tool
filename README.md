@@ -74,7 +74,7 @@ Key components include:
 
 ---
 ## Debugging Log
-Below is a concise summary issues encountered during the EKS deployment, their causes, solutions, and key lessons I learned for quick reference.
+Below is a concise summary of issues I encountered during the EKS deployment, their causes, solutions, and key lessons I learned for quick reference.
 
 | Issue                         | Cause                                           | Solution                                                      | Lesson Learned                                   |
 |-------------------------------|-------------------------------------------------|---------------------------------------------------------------|-------------------------------------------------|
