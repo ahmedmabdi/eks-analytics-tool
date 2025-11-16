@@ -24,11 +24,11 @@ This solution provides:
 | Feature                     | Description                                                                                  |
 |-----------------------------|----------------------------------------------------------------------------------------------|
 | **Infrastructure as Code**  | Terraform provisions VPC, EKS cluster, node groups, RDS, ALB, IAM roles, Security Groups      |
-| **Networking**              | Public + private subnets spanning 2 AZs; single NAT Gateway to reduce cost without sacrificing access |
+| **Networking**              | Public + private subnets spanning 3 AZs; single NAT Gateway to reduce cost without sacrificing access |
 | **Database**                | Single-AZ Amazon RDS PostgreSQL instance to balance cost and durability                      |
 | **Container Orchestration** | Kubernetes managed by EKS, with GitOps deployments via ArgoCD                                |
 | **CI/CD & GitOps**          | Application manifests and Helm charts deployed using ArgoCD, enabling declarative workflows |
-| **Monitoring & Logging**    | CloudWatch, Prometheus, Grafana, and Alertmanager integrated for observability               |
+| **Monitoring & Logging**    | Prometheus & Grafana integrated for observability               |
 | **State Management**        | Terraform state stored in S3 with **native S3 locking** enabled for consistency              |
 | **Security & IAM**          | Fine-grained IAM roles and policies applied to cluster components                            |
 
@@ -45,7 +45,7 @@ This solution provides:
 
 Key components include:
 
-- VPC with public and private subnets across 2 Availability Zones  
+- VPC with public and private subnets across 3 Availability Zones  
 - Managed EKS control plane with worker node groups 
 - Single Application Load Balancer (ALB) for ingress traffic  
 - Amazon RDS (PostgreSQL) for backend persistence  
@@ -78,7 +78,7 @@ Key components include:
 - Add **AWS WAF** for web application protection  
 - Enable **Multi-AZ RDS** for high availability and failover  
 - Integrate **AWS Secrets Manager** for enhanced secret management  
-- Add **NAT Gateway in second AZ** for fault tolerance  
+- Add **NAT Gateway in other AZs** for fault tolerance  
 - Implement **Security Hub** and **GuardDuty** for advanced security posture monitoring  
 
 ---
