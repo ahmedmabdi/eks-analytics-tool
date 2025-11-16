@@ -1,8 +1,8 @@
 # EKS Platform Deployment – Production-Ready AWS Infrastructure
 
-This project provisions a fully managed **Amazon EKS** cluster with end-to-end infrastructure deployed via **Terraform**, containerized app delivery through **ArgoCD** (GitOps), and integrated observability.  
-It is designed with a strong focus on **cost-optimization**, security, and operational best practices for production workloads.
+This project provisions a fully managed **Amazon EKS** cluster with end-to-end infrastructure deployed via **Terraform**, containerized app delivery through **ArgoCD** (GitOps), and integrated observability. It is designed with a strong focus on **cost-optimization**, security, and operational best practices for production workloads.
 
+The primary application deployed is the **Umami web analytics platform** for enabling scalable and privacy-focused analytics to handle growing traffic demands. Deploying Umami on EKS ensures high availability, seamless scaling, and robust security compliance, all managed with infrastructure-as-code and GitOps workflows to support continuous delivery and operational efficiency.
 ---
 
 ## Why Amazon EKS?
@@ -73,7 +73,7 @@ Key components include:
 
 ---
 ## Debugging Log
-Below is a concise summary of common issues encountered during EKS deployments, their causes, solutions, and key lessons learned for quick reference.
+Below is a concise summary issues encountered during the EKS deployment, their causes, solutions, and key lessons I learned for quick reference.
 
 | Issue                         | Cause                                           | Solution                                                      | Lesson Learned                                   |
 |-------------------------------|-------------------------------------------------|---------------------------------------------------------------|-------------------------------------------------|
