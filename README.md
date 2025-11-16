@@ -73,6 +73,7 @@ Key components include:
 
 ---
 ## Debugging Log
+Below is a concise summary of common issues encountered during EKS deployments, their causes, solutions, and key lessons learned for quick reference.
 
 | Issue                         | Cause                                           | Solution                                                      | Lesson Learned                                   |
 |-------------------------------|-------------------------------------------------|---------------------------------------------------------------|-------------------------------------------------|
