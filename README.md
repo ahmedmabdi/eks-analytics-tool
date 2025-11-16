@@ -1,86 +1,97 @@
- # Web Analytics Application on Amazon EKS
+# EKS Platform Deployment – Production-Ready AWS Infrastructure
 
-## Introduction
-This project deploys a containerised web analytics application (Umami) on Amazon EKS using a production-aligned cloud-native architecture. It uses Terraform for provisioning, Helm for deployment, and ArgoCD for GitOps automation. The environment includes secure networking, managed Kubernetes control plane, scalable node groups, and AWS-integrated IAM, DNS, certificates, logging, and monitoring.
+This project provisions a fully managed **Amazon EKS** cluster with end-to-end infrastructure deployed via **Terraform**, containerized app delivery through **ArgoCD** (GitOps), and integrated observability.  
+It is designed with a strong focus on **cost-optimization**, security, and operational best practices for production workloads.
 
-## Project Overview
-This repository provisions the full infrastructure and application stack required for running Umami on EKS. Terraform handles VPC, EKS, RDS, IAM, and Pod Identity. Kubernetes add-ons (Ingress, certificates, DNS, monitoring, GitOps) are deployed via Helm and ArgoCD. GitHub Actions provides CI/CD for container builds and Terraform deployment.
+---
 
-### Core Tools
-- Terraform (AWS infrastructure)
-- Docker (application container)
-- Helm (Kubernetes components)
-- ArgoCD (GitOps)
-- GitHub Actions (CI/CD)
-- AWS Pod Identity
-- SSM Parameter Store
+## Why Amazon EKS?
 
-### Kubernetes Add-ons
-- NGINX Ingress Controller  
-- cert-manager  
-- ExternalDNS  
-- ArgoCD  
-- Prometheus  
-- Grafana  
+EKS was chosen for its seamless integration with the AWS ecosystem, managed control plane, and support for Kubernetes-native workflows.  
+This solution provides:
 
-### Application Components
-- Umami Docker image  
-- PostgreSQL RDS instance  
-- Helm values for each add-on  
-- ArgoCD applications for automated deployment  
+- Automated control plane management  
+- Secure networking with VPC CNI  
+- Integration with IAM for access control  
+- Scalability via managed node groups and Fargate profiles  
+- Seamless support for GitOps using ArgoCD  
+- Robust monitoring and alerting via CloudWatch and Prometheus  
 
-## Architecture Summary
-The platform uses a multi-AZ VPC with public and private subnets, a managed EKS cluster, private RDS PostgreSQL, and Kubernetes add-ons for networking, security, and observability. Traffic enters through an Ingress Controller, services authenticate using AWS Pod Identity, and secrets are stored in SSM Parameter Store. Terraform manages all AWS components while ArgoCD continuously deploys application manifests.
+---
 
-### Networking (VPC)
-- CIDR: 10.0.0.0/16  
-- Three private and three public subnets  
-- One NAT gateway  
-- DNS hostnames + DNS support enabled  
+## Project Highlights
 
-### EKS Cluster
-- Kubernetes 1.30  
-- Managed node group (t3.medium, multi-AZ)  
-- Worker nodes in private subnets  
-- Core add-ons: CoreDNS, kube-proxy, VPC CNI, Pod Identity Agent  
+| Feature                     | Description                                                                                  |
+|-----------------------------|----------------------------------------------------------------------------------------------|
+| **Infrastructure as Code**  | Terraform provisions VPC, EKS cluster, node groups, RDS, ALB, IAM roles, Security Groups      |
+| **Networking**              | Public + private subnets spanning 2 AZs; single NAT Gateway to reduce cost without sacrificing access |
+| **Database**                | Single-AZ Amazon RDS PostgreSQL instance to balance cost and durability                      |
+| **Container Orchestration** | Kubernetes managed by EKS, with GitOps deployments via ArgoCD                                |
+| **CI/CD & GitOps**          | Application manifests and Helm charts deployed using ArgoCD, enabling declarative workflows |
+| **Monitoring & Logging**    | CloudWatch, Prometheus, Grafana, and Alertmanager integrated for observability               |
+| **State Management**        | Terraform state stored in S3 with **native S3 locking** enabled for consistency              |
+| **Security & IAM**          | Fine-grained IAM roles and policies applied to cluster components                            |
 
-### Database Layer (RDS)
-- PostgreSQL in private subnets  
-- Credentials stored in SSM Parameter Store  
-- Application retrieves credentials through environment variables  
+> **Cost Controls:**  
+> - Single NAT Gateway to limit monthly costs while ensuring outbound internet access for private subnets.  
+> - Single-AZ RDS instance optimized for development or low-throughput environments.  
+> - Minimal node group sizes with auto-scaling for cost efficiency.
 
-## GitOps and CI/CD
-Docker images are built and pushed to ECR using GitHub Actions. Terraform deployments run through a separate pipeline using GitHub OIDC authentication. ArgoCD monitors the repository and syncs manifests automatically, eliminating the need for manual kubectl commands.
+---
 
-## Repository Structure
-```
-.github/workflows/
-app/
-helm-values/
-manifests/
-media/
-eks.tf
-helm.tf
-locals.tf
-podidentity.tf
-providers.tf
-rds.tf
-vpc.tf
-README.md
-```
+## Architecture Diagram
 
-## CI/CD Overview
-The build pipeline creates container images and pushes them to ECR. The Terraform pipeline initialises, plans, and applies infrastructure changes using remote state in S3 and DynamoDB locking. ArgoCD consumes the manifests and deploys changes automatically to the cluster.
+![Architecture Diagram](images/architecture.png)  
 
-## Troubleshooting (Headings Only)
-- CRD Conflicts  
-- EKS Add-on Failures  
-- Node Not Ready  
-- SSM Parameter Errors  
-- VPC Deletion Blocked by ENIs  
-- Pod Identity Role Issues  
-- Ingress or DNS Misconfiguration  
-- RDS Connectivity  
+Key components include:
+
+- VPC with public and private subnets across 2 Availability Zones  
+- Managed EKS control plane with worker node groups and Fargate profiles  
+- Single Application Load Balancer (ALB) for ingress traffic  
+- Amazon RDS (PostgreSQL) for backend persistence  
+- S3 bucket with native locking for Terraform state management  
+- ArgoCD deployed in cluster for continuous delivery  
+- Monitoring stack: Prometheus + Grafana + CloudWatch
+
+---
+
+## Screenshots
+
+### Application UI
+
+![Application Screenshot](media/umamiweb.png)  
+
+### ArgoCD Dashboard
+
+![ArgoCD Screenshot](media/argocd.png)  
+
+### Monitoring Stack (Grafana)
+
+![Monitoring Screenshot](media/grafana1.png) 
+![Monitoring Screenshot](media/grafana.png)  
+![Monitoring Screenshot](media/prometheus.png)  
+
+---
 
 ## Future Improvements
-This platform can be extended with multi-node-group autoscaling, multi-AZ HA RDS, KMS encryption, private EKS API endpoint, network policies, NLB ingress, cluster autoscaler, Velero backups, and cost-optimisation using Graviton and subnet-aware autoscaling.
+
+- Add **AWS WAF** for web application protection  
+- Enable **Multi-AZ RDS** for high availability and failover  
+- Integrate **AWS Secrets Manager** for enhanced secret management  
+- Add **NAT Gateway in second AZ** for fault tolerance  
+- Implement **Security Hub** and **GuardDuty** for advanced security posture monitoring  
+
+---
+
+## CI/CD Workflows
+
+- **Build & Push Container Images**
+
+  ![Build & Push](media/build-push.png)  
+
+- **Terraform Plan & Apply**
+
+  ![Terraform Apply](media/tapply.png)  
+
+
+---
