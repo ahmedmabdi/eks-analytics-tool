@@ -4,5 +4,7 @@
 .terraform/
 *.tfstate.lock.info
 index.html
+.tfvars
+.terraform.lock.hcl
 node_modules/
 .env

@@ -33,7 +33,7 @@ This deployment benefits from:
 | **CI/CD Pipeline**            | GitHub Actions builds Docker images, pushes to Amazon ECR, and triggers ArgoCD sync for automated app delivery. |
 | **Database Layer**            | Amazon RDS PostgreSQL (private subnets) with secure SG rules, powered by SSM-managed credentials. |
 | **DNS & Certificates**        | Route53 + ExternalDNS automate DNS updates; cert-manager issues TLS certificates via ClusterIssuer. |
-| **Monitoring & Logging**      | Kube-Prometheus-Stack provides cluster metrics, alerting, and Grafana dashboards for observability. |
+| **Monitoring & Logging**      | Prometheus cluster metrics, alerting, and Grafana dashboards for observability. |
 | **State Management**          | Terraform state stored in S3 backend with **native S3 state locking** for consistency and drift protection. |
 | **Security Model**            | Pod Identity for role-based AWS access; least-privilege IAM; restricted SG rules; private subnets for RDS and workloads. |
 
