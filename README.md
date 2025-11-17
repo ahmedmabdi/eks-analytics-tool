@@ -1,8 +1,8 @@
 # EKS Deployment – Web Analytics Platform
 
-This project deploys a production ready Amazon EKS environment to host the Umami web analytics application with fully automated, scalable and secure infrastructure. The stack uses Terraform for end to end provisioning, ArgoCD for GitOps based application delivery and a complete observability suite for real time monitoring.
+This project deploys an **Amazon EKS environment** to host the **Umami web analytics** application with fully automated, scalable and secure infrastructure. The stack uses Terraform for end to end provisioning, ArgoCD for GitOps based application delivery and a complete observability suite for real time monitoring.
 
-The solution integrates multiple AWS services including ECR, RDS PostgreSQL, Route53 and IAM to provide a modern, cost efficient and resilient platform for running a privacy focused analytics tool at scale. By combining Kubernetes best practices with GitOps workflows, the deployment supports continuous delivery, high availability across multiple Availability Zones and strong operational governance.
+The solution integrates multiple AWS services including **ECR, RDS PostgreSQL, Route53 and IAM** to provide a modern, cost efficient and resilient platform for running a privacy focused analytics tool at scale. By combining Kubernetes best practices with GitOps workflows, the deployment supports continuous delivery, high availability across multiple Availability Zones and strong operational governance.
 
 ---
 
