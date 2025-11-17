@@ -1,4 +1,4 @@
-# EKS Platform Deployment – Production-Ready AWS Infrastructure
+# EKS Deployment – Web Analaytics Tool
 
 This project provisions a fully managed **Amazon EKS** cluster with end-to-end infrastructure deployed via **Terraform**, containerized app delivery through **ArgoCD** (GitOps), and integrated observability. It is designed with a strong focus on **cost-optimization**, security, and operational best practices for production workloads.
 
