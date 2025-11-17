@@ -42,7 +42,7 @@ This solution provides:
 
 ## Architecture Diagram
 
-![Architecture Diagram](images/architecture.png)  
+![Architecture Diagram](media/architecture.png)  
 
 Key components include:
 
