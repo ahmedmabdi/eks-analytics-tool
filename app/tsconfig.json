@@ -33,6 +33,6 @@
       }
     ]
   },
-  "include": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx", "next-env.d.ts", ".next/types/**/*.ts"],
+  "include": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx", "next-env.d.ts", ".next/types/**/*.ts", "scripts/create-admin-user.js"],
   "exclude": ["node_modules", "./cypress.config.ts", "cypress"]
 }
