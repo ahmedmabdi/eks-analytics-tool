@@ -75,7 +75,7 @@ Below is a concise summary of issues I encountered during the EKS deployment, th
 | EKS CNI Not Ready / Addon CREATE_FAILED | Addons installed in wrong order; conflicting CRDs from auto-installed partial CNI | Delete failed addon, remove CRDs, clean leftovers, reinstall addon, recreate nodes | Always install VPC CNI before nodes; use `most_recent = true` for addons |
 | Prometheus & Grafana Access Fail | Incorrect ClusterIssuer in ingress; missing DNS records | Fix ingress annotation; update DNS records; reapply Helm chart | Validate TLS issuers and DNS early              |
 | Argo CD Service “Not Connected” UI Issue | Visualization limitation—Service selects Pods, no ownerReferences to Deployment | Verified labels & endpoints; no fix needed                    | Use `kubectl get endpoints` to confirm Service routing |
-| Certificate Not Issued on EKS | Certificate resource created before Issuer fully reconciled; stale ACME challenges; cert-manager controller delayed reconciliation | Delete stuck CertificateRequest & ACME Challenge, restart cert-manager deployment, monitor Certificate status | Use `depends_on` in Terraform for Certificate → Issuer; split apply stages: cert-manager+Issuer first, then Certificates |
+| Certificate Not Issued on EKS | Certificate resource created before Issuer fully reconciled; stale ACME challenges; cert-manager controller delayed reconciliation | Delete stuck CertificateRequest & ACME Challenge, restart cert-manager deployment, monitor Certificate status | in future deployments use `depends_on` in Terraform for Certificate → Issuer; split apply stages: cert-manager+Issuer first, then Certificates |
 
 ---
 
