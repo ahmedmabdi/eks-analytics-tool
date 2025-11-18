@@ -2,8 +2,11 @@ name: Build, Scan & Push Docker Image
 
 on:
   push:
-    branches:
-      - main
+    paths:
+      - 'app/**'          
+  pull_request:
+    paths:
+      - 'app/**'
 
 env:
   AWS_REGION: ${{ secrets.REGION }}
@@ -41,11 +44,11 @@ jobs:
       - name: Login to Amazon ECR
         run: |
             aws ecr get-login-password --region $AWS_REGION \
-            | docker login --username AWS --password-stdin ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.$AWS_REGION.amazonaws.com
+            | docker login --username AWS --password-stdin 471112781681.dkr.ecr.$AWS_REGION.amazonaws.com
 
       - name: Tag and push Docker image to ECR.
         run: |
               docker tag $ECR_REPOSITORY:$IMAGE_TAG \
-              ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY:$IMAGE_TAG
+              471112781681.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY:$IMAGE_TAG
 
-              docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY:$IMAGE_TAG
+              docker push 471112781681.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY:$IMAGE_TAG

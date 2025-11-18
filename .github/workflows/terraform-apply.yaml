@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       AWS_REGION: eu-west-2
-      container_image: "${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.eu-west-2.amazonaws.com/${{ github.event.inputs.ecr_repository }}:${{ github.event.inputs.image_tag }}"
+      container_image: "471112781681.dkr.ecr.eu-west-2.amazonaws.com/${{ github.event.inputs.ecr_repository }}:${{ github.event.inputs.image_tag }}"
       container_name: "${{ github.event.inputs.ecr_repository }}"
       container_port: "3000"
       rds_db_name: "${{ secrets.RDS_DB_NAME }}"

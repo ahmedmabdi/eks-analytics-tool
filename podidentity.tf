@@ -45,3 +45,4 @@ resource "aws_eks_pod_identity_association" "external_dns" {
     helm_release.external_dns
   ]
 }
+
