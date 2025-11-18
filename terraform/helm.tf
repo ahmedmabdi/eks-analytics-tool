@@ -99,20 +99,3 @@ resource "aws_route53_record" "argocd" {
   records = [data.kubernetes_ingress_v1.argocd.status[0].load_balancer[0].ingress[0].hostname]
 }
 
-data "aws_ssm_parameter" "grafana_password" {
-  name = "/grafana/password"
-  with_decryption = true
-}
-
-resource "kubernetes_secret" "grafana_admin_secret" {
-  metadata {
-    name      = "grafana-admin-secret"
-    namespace = "monitoring"
-  }
-
-  data = {
-    admin_password = base64encode(data.aws_ssm_parameter.grafana_password.value)
-  }
-
-  type = "Opaque"
-}
