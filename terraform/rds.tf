@@ -19,22 +19,13 @@ resource "aws_security_group" "rds" {
 
   tags = local.tags
 }
+
 resource "aws_db_subnet_group" "umami" {
   name       = "umami-subnet-group"
   subnet_ids = module.vpc.private_subnets
   tags = {
     Name = "umami-subnet-group"
   }
-}
-
-data "aws_ssm_parameter" "rds_username" {
-  name            = "/umami/rds_username"
-  with_decryption = true
-}
-
-data "aws_ssm_parameter" "rds_password" {
-  name            = "/umami/rds_password"
-  with_decryption = true
 }
 
 resource "aws_db_instance" "umami" {
@@ -57,23 +48,4 @@ output "db_address" {
 
 output "db_port" {
   value = aws_db_instance.umami.port
-}
-
-resource "aws_ssm_parameter" "database_url" {
-  name  = "/umami/DATABASE_URL"
-  type  = "SecureString"
-  value = "postgresql://${urlencode(data.aws_ssm_parameter.rds_username.value)}:${urlencode(data.aws_ssm_parameter.rds_password.value)}@${aws_db_instance.umami.endpoint}/${aws_db_instance.umami.db_name}"
-}
-
-resource "kubernetes_secret" "umami_db_secret" {
-  metadata {
-    name      = "umami-db-secret"
-    namespace = "app"
-  }
-
-  data = {
-    database_url = aws_ssm_parameter.database_url.value
-  }
-
-  type = "Opaque"
 }
