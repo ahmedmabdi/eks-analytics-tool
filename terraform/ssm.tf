@@ -28,7 +28,7 @@ resource "kubernetes_secret" "umami_db_secret" {
 }
 
 data "aws_ssm_parameter" "grafana_password" {
-  name = "/grafana/password"
+  name            = "/grafana/password"
   with_decryption = true
 }
 
