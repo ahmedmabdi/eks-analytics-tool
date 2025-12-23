@@ -24,11 +24,11 @@ terraform {
   }
 
   backend "s3" {
-    bucket  = "eks--project"
-    key     = "eks-lab"
-    region  = "eu-west-2"
-    encrypt = true
-    use_lockfile = true 
+    bucket       = "eks--project"
+    key          = "eks-lab"
+    region       = "eu-west-2"
+    encrypt      = true
+    use_lockfile = true
   }
 }
 

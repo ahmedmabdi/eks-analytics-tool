@@ -1,7 +1,7 @@
 resource "aws_security_group" "rds" {
-  name        = "umami-rds-sg"
-  description = "RDS SG for Umami app"
-  vpc_id      = module.vpc.vpc_id
+  name        = "${var.project_name}-rds-sg"
+  description = "Security group for RDS"
+  vpc_id      = var.vpc_id
 
   ingress {
     from_port   = 5432
@@ -21,25 +21,26 @@ resource "aws_security_group" "rds" {
 }
 
 resource "aws_db_subnet_group" "umami" {
-  name       = "umami-subnet-group"
-  subnet_ids = module.vpc.private_subnets
+  name       = "${var.project_name}-subnet-group"
+  subnet_ids = var.private_subnets
+  
   tags = {
     Name = "umami-subnet-group"
   }
 }
 
 resource "aws_db_instance" "umami" {
-  identifier             = "umami-db"
-  db_name                = "umami"
+  identifier             = var.db_identifier
+  db_name                = var.db_name
   engine                 = "postgres"
-  instance_class         = "db.t3.micro"
-  allocated_storage      = 20
-  username               = data.aws_ssm_parameter.rds_username.value
-  password               = data.aws_ssm_parameter.rds_password.value
+  instance_class         = var.instance_type
+  allocated_storage      = var.allocated_storage
+  username               = var.rds_username
+  password               = var.rds_password
   db_subnet_group_name   = aws_db_subnet_group.umami.name
   vpc_security_group_ids = [aws_security_group.rds.id]
   skip_final_snapshot    = true
-  publicly_accessible    = true
+  publicly_accessible    = var.publicly_accessible
 }
 
 output "db_address" {
