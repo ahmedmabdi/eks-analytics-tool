@@ -24,7 +24,6 @@ variable "cert_manager_hosted_zone_arns" {
   default = []
 }
 
-
 variable "tags" {
   type = map(string)
 }
