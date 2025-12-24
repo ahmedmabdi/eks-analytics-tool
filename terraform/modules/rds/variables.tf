@@ -1,5 +1,4 @@
 variable "db_name" {
-  description = "The name of the Postgres database to create."
   type        = string
   default     = "umami"
 }

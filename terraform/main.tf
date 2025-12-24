@@ -183,6 +183,7 @@ resource "kubernetes_secret_v1" "umami_db_secret" {
 
   type = "Opaque"
 }
+
 resource "kubernetes_namespace_v1" "monitoring" {
   metadata {
     name = "monitoring"
